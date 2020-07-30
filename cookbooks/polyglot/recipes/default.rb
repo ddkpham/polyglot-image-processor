@@ -37,9 +37,9 @@ package ['build-essential', 'cmake']
 
 # Other core language tools you might want
 
-#package ['python3', 'python3-pip', 'python3-dev']  # Python
+package ['python3', 'python3-pip', 'python3-dev']  # Python
 #package ['ghc', 'libghc-random-dev', 'cabal-install']  # Haskell
-#package 'golang-go'  # Go
+package 'golang-go'  # Go
 #package 'erlang'  # Erlang
 #package 'ocaml-nox'  # OCaml
 #package ['rustc', 'cargo']  # Rust
@@ -64,15 +64,15 @@ package ['build-essential', 'cmake']
 
 # NodeJS (more modern than Ubuntu nodejs package) and NPM
 
-#remote_file '/opt/installers/node-setup.sh' do
-#  source 'https://deb.nodesource.com/setup_14.x'
-#  mode '0755'
-#end
-#execute '/opt/installers/node-setup.sh' do
-#  creates '/etc/apt/sources.list.d/nodesource.list'
-#  notifies :run, 'execute[apt-get update]', :immediately
-#end
-#package ['nodejs']
+remote_file '/opt/installers/node-setup.sh' do
+ source 'https://deb.nodesource.com/setup_14.x'
+ mode '0755'
+end
+execute '/opt/installers/node-setup.sh' do
+ creates '/etc/apt/sources.list.d/nodesource.list'
+ notifies :run, 'execute[apt-get update]', :immediately
+end
+package ['nodejs']
 
 
 # SWIG
@@ -82,23 +82,23 @@ package ['build-essential', 'cmake']
 
 # RabbitMQ-related things
 
-#package ['rabbitmq-server']
+package ['rabbitmq-server']
 
 # Python pika library
-#execute 'pip3 install pika==1.1.0' do
-#  creates "#{python3_packages}/pika/__init__.py"
-#end
+execute 'pip3 install pika==1.1.0' do
+ creates "#{python3_packages}/pika/__init__.py"
+end
 # Ruby bunny library
 #execute 'gem install bunny -v 2.15.0' do
 #  creates "#{ruby_gems}/bunny-2.15.0/Gemfile"
 #end
 # Go amqp library
-#execute 'go get github.com/streadway/amqp github.com/google/uuid' do
+# execute 'go get github.com/streadway/amqp github.com/google/uuid' do
 #  cwd project_home 
 #  user username
 #  environment 'HOME' => user_home
 #  creates user_home + '/go/src/github.com/streadway/amqp/README.md'
-#end
+# end
 # Java amqp library
 #package 'librabbitmq-client-java'
 
