@@ -1,3 +1,7 @@
+# Chef attributes used to override the default settings on a node used to understand 
+# - The current state of the node
+# - What the state of the node was at the end of the rpevious Chef infra client run 
+# - what the state should be at the end of a run
 ubuntu_mirror = 'https://mirror.its.sfu.ca/mirror/ubuntu/'
 ubuntu_release = 'bionic'
 ubuntu_version = '18.04'
