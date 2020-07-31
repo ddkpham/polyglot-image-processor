@@ -103,6 +103,11 @@ execute 'pip3 install flask' do
   command '/usr/bin/pip3 install flask'
 end
 
+# install rabit mq 
+execute 'go get github.com/streadway/amqp' do 
+  cwd '/home/vagrant/project/api/go/src/main'
+  command '/usr/bin/go get github.com/streadway/amqp'
+end
 # try running app with a bash resource
 
 bash 'start react app' do 
