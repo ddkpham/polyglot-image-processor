@@ -38,20 +38,11 @@ directory '/opt/installers'
 
 package ['build-essential', 'cmake']
 
-
 # Other core language tools you might want
 
 package ['python3', 'python3-pip', 'python3-dev']  # Python
-#package ['ghc', 'libghc-random-dev', 'cabal-install']  # Haskell
 package 'golang-go'  # Go
-#package 'erlang'  # Erlang
-#package 'ocaml-nox'  # OCaml
-#package ['rustc', 'cargo']  # Rust
-#package 'scala'  # Scala
-#package ['ruby', 'ruby-dev']  # Ruby
-#package ['openjdk-11-jdk', 'maven']  # Java
-#package ['php-cli', 'php-pear']  # PHP
-#package 'clang' # Clang C/C++ compiler
+
 
 
 # .NET Core
@@ -107,61 +98,17 @@ end
 #package 'librabbitmq-client-java'
 
 
-# ZeroMQ-related things
+# install flask 
+execute 'pip3 install flask' do 
+  command '/usr/bin/pip3 install flask'
+end
 
-# C/C++ library and dev library
-#package ['libzmq5', 'libzmq5-dev']
-# Python pyzmq library
-#execute 'pip3 install pyzmq==19.0.1' do
-#  creates "#{python3_packages}/zmq/__init__.py"
-#end
-# Ruby ezmq library
-#execute 'gem install ezmq -v 0.4.12' do
-#  creates "#{ruby_gems}/ezmq-0.4.12/Gemfile"
-#end
-# Node zmq library
-#execute 'npm install zeromq@6.0.0-beta.6' do
-#  cwd project_home
-#  user username
-#  environment 'HOME' => user_home
-#  creates project_home + '/node_modules/zeromq/package.json'
-#end
-# Go zmq4 library
-#execute 'go get github.com/pebbe/zmq4' do
-#  cwd project_home 
-#  user username
-#  environment 'HOME' => user_home
-#  creates user_home + '/go/pkg/linux_amd64/github.com/pebbe/zmq4.a'
-#end
+# try running app with a bash resource
 
-
-# GraalVM
-
-#graalvm_version = '20.1.0'
-#graalvm_directory = "graalvm-ce-java11-#{graalvm_version}"
-#remote_file '/opt/installers/graalvm.tar.gz' do
-#  source "https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-#{graalvm_version}/graalvm-ce-java11-linux-amd64-#{graalvm_version}.tar.gz"
-#end
-#execute 'tar zxf /opt/installers/graalvm.tar.gz' do
-#  cwd '/opt'
-#  creates "/opt/#{graalvm_directory}/release"
-#end
-#link '/opt/graalvm' do
-#  to "/opt/#{graalvm_directory}"
-#  link_type :symbolic
-#end
-#file '/etc/profile.d/graalvm.sh' do
-#  content 'PATH=${PATH}:/opt/graalvm/bin'
-#end
-# GraalVM's Python
-#execute '/opt/graalvm/bin/gu install python' do
-#  creates "/opt/#{graalvm_directory}/bin/graalpython"
-#end
-# GraalVM's Ruby
-#execute '/opt/graalvm/bin/gu install ruby' do
-#  creates "/opt/#{graalvm_directory}/bin/ruby"
-#end
-# GraalVM's LLVM (C, C++) tools
-#execute '/opt/graalvm/bin/gu install llvm-toolchain' do
-#  creates "/opt/#{graalvm_directory}/bin/lli"
-#end
+bash 'start react app' do 
+  user 'root'
+  cwd '/home/vagrant/project/client'
+  code <<-EOH
+    npm start &
+  EOH
+end
